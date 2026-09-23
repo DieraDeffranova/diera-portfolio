@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background: #0a0909;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply font-sans font-light text-sand-200;
+    /* No body background: the fixed ambient layer (z -10) must show through. The canvas colour comes from html. */
+    overflow-x: hidden;
+  }
+  ::selection {
+    @apply bg-sand-200 text-ink-950;
+  }
+  :focus-visible {
+    outline: 1px solid theme('colors.sand.200');
+    outline-offset: 4px;
+  }
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/*
+ * The portrait dissolves into the page through a mask (not colour overlays), so the ambient
+ * light behind it shows through. The frame floats with space around it, so every edge fades:
+ * most on the side facing the text and at the bottom, lightly on the top and outer edge.
+ */
+.portrait-mask {
+  --portrait-fade: linear-gradient(to right, transparent 0%, #000 16%), linear-gradient(to left, transparent 0%, #000 8%),
+    linear-gradient(to bottom, transparent 0%, #000 8%), linear-gradient(to top, transparent 0%, #000 22%);
+  -webkit-mask-image: var(--portrait-fade);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--portrait-fade);
+  mask-composite: intersect;
+}
+@media (min-width: 1024px) {
+  .portrait-mask {
+    --portrait-fade: linear-gradient(to right, transparent 0%, #000 22%), linear-gradient(to left, transparent 0%, #000 9%),
+      linear-gradient(to bottom, transparent 0%, #000 9%), linear-gradient(to top, transparent 0%, #000 20%);
+  }
+}
+
+/* Ambient studio light: two very slow, very faint drifting light fields. Transform-only animation. */
+@keyframes ambient-drift-a {
+  0%, 100% { transform: translate3d(-10vw, -6vh, 0) scale(1); }
+  35% { transform: translate3d(8vw, -2vh, 0) scale(1.08); }
+  70% { transform: translate3d(2vw, 9vh, 0) scale(0.96); }
+}
+@keyframes ambient-drift-b {
+  0%, 100% { transform: translate3d(6vw, 8vh, 0) scale(1); }
+  50% { transform: translate3d(-9vw, -5vh, 0) scale(1.1); }
+}
+.ambient-drift-a {
+  animation: ambient-drift-a 56s ease-in-out infinite;
+  will-change: transform;
+}
+.ambient-drift-b {
+  animation: ambient-drift-b 72s ease-in-out infinite;
+  will-change: transform;
+}
+/* Touch devices keep the static light only: no continuous animation on phones and tablets. */
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .ambient-drift-a,
+  .ambient-drift-b {
+    animation: none;
+  }
+}
+
+/* Subtle film grain over the whole site */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+}
+
+@layer components {
+  /* Page gutter; never smaller than the device safe area (notches in landscape). */
+  .container-x {
+    --gutter: 1.25rem;
+    @apply mx-auto w-full max-w-[1600px];
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+  @media (min-width: 640px) {
+    .container-x {
+      --gutter: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-x {
+      --gutter: 3.5rem;
+    }
+  }
+  .label {
+    @apply text-[11px] font-normal uppercase tracking-[0.24em] text-sand/60;
+  }
+  .display {
+    @apply font-serif font-light tracking-[-0.01em];
+  }
+  .hairline {
+    @apply border-sand/15;
+  }
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 3px;
+    transition: background-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
