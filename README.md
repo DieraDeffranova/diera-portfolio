@@ -101,7 +101,7 @@ body text (Hanken Grotesk has no basic Cyrillic). No requests to Google Fonts.
 
 ```
 src/
-  components/  Navbar, LanguageSelector, CustomCursor, Hero, Portrait, Stats, FeaturedWork, ProjectCard,
+  components/  Navbar, LanguageSelector, CustomCursor, Hero, HeroStar, Stats, FeaturedWork, ProjectCard,
                Services, About, Tools, Profiles, StartProject, Contact, Footer,
                Cta, Magnetic, Reveal, Img
   context/     StartProjectContext (open the request form from anywhere)
