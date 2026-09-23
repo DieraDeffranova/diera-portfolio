@@ -39,26 +39,6 @@
   cursor: none !important;
 }
 
-/*
- * The portrait dissolves into the page through a mask (not colour overlays), so the ambient
- * light behind it shows through. The frame floats with space around it, so every edge fades:
- * most on the side facing the text and at the bottom, lightly on the top and outer edge.
- */
-.portrait-mask {
-  --portrait-fade: linear-gradient(to right, transparent 0%, #000 16%), linear-gradient(to left, transparent 0%, #000 8%),
-    linear-gradient(to bottom, transparent 0%, #000 8%), linear-gradient(to top, transparent 0%, #000 22%);
-  -webkit-mask-image: var(--portrait-fade);
-  -webkit-mask-composite: source-in;
-  mask-image: var(--portrait-fade);
-  mask-composite: intersect;
-}
-@media (min-width: 1024px) {
-  .portrait-mask {
-    --portrait-fade: linear-gradient(to right, transparent 0%, #000 22%), linear-gradient(to left, transparent 0%, #000 9%),
-      linear-gradient(to bottom, transparent 0%, #000 9%), linear-gradient(to top, transparent 0%, #000 20%);
-  }
-}
-
 /* Ambient studio light: two very slow, very faint drifting light fields. Transform-only animation. */
 @keyframes ambient-drift-a {
   0%, 100% { transform: translate3d(-10vw, -6vh, 0) scale(1); }

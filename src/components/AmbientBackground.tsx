@@ -4,7 +4,7 @@ import { useFinePointer } from '../hooks/useFinePointer';
 
 /**
  * A barely-there studio atmosphere behind the whole site:
- * - a static backdrop: warm lift behind the portrait, darker floor and edges;
+ * - a static backdrop: warm lift behind the hero object, darker floor and edges;
  * - two huge, faint light fields that drift over about a minute (CSS, transform only);
  * - one soft light field that leans toward the pointer's general position with heavy easing,
  *   and settles back to neutral when the pointer rests or leaves the window.

@@ -1,5 +1,7 @@
+import { Suspense, lazy } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import Portrait from './Portrait';
+// The 3D star (and three.js with it) loads in its own chunk, so the hero text paints first.
+const HeroStar = lazy(() => import('./HeroStar'));
 import MagneticText from './MagneticText';
 import Stats from './Stats';
 import { CircleCta, TextCta } from './Cta';
@@ -37,19 +39,17 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative mx-auto max-w-[1920px] overflow-hidden lg:min-h-[max(720px,100svh)]">
-      {/* Portrait: above the text on mobile, right side on desktop */}
       {/*
-        Portrait frame. It keeps a 4:5 frame close to the photo's own 3:4, so almost nothing is cropped.
-        Mobile / tablet: right-aligned above the text, with breathing room around it.
-        Desktop: on the right, vertically centred, pulled toward the headline so its softly faded
-        left edge slips just under the end of the name (the text always stays on top).
-        Tablet: the name overlaps the faded bottom of the frame a little. Mobile: no overlap.
+        The chrome star: above the text on mobile, on the right on desktop.
+        Square frame, kept clear of the headline at every width.
       */}
-      <div className="relative ml-auto mr-5 mt-20 aspect-[4/5] w-[84%] max-w-[440px] sm:mr-8 sm:mt-24 sm:w-[60%] sm:max-w-[520px] lg:absolute lg:right-[10%] lg:top-1/2 lg:m-0 lg:w-[34%] lg:max-w-none lg:-translate-y-[46%] xl:right-[11%] xl:w-[36%] min-[1920px]:right-[9%] min-[1920px]:aspect-[3/4] min-[1920px]:w-[29%]">
-        <Portrait />
+      <div className="relative ml-auto mr-2 mt-12 aspect-square w-[86%] max-w-[420px] sm:mr-6 sm:mt-16 sm:w-[64%] sm:max-w-[520px] lg:absolute lg:right-[7%] lg:top-1/2 lg:m-0 lg:w-[37%] lg:max-w-none lg:-translate-y-[46%] xl:right-[8%] xl:w-[38%] min-[1920px]:right-[6%] min-[1920px]:w-[29%]">
+        <Suspense fallback={null}>
+          <HeroStar className="absolute inset-0" />
+        </Suspense>
       </div>
 
-      <div className="container-x relative z-10 mt-3 pb-16 sm:pointer-events-none sm:-mt-14 lg:mt-0 lg:flex lg:min-h-[max(720px,100svh)] lg:flex-col lg:justify-center lg:pb-20 lg:pt-32">
+      <div className="container-x relative z-10 mt-6 pb-16 sm:pointer-events-none sm:mt-8 lg:mt-0 lg:flex lg:min-h-[max(720px,100svh)] lg:flex-col lg:justify-center lg:pb-20 lg:pt-32">
         <motion.p className="label" {...fade(0.3, 10)}>
           {t.hero.role}
         </motion.p>

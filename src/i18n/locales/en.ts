@@ -42,8 +42,6 @@ export const en = {
     intro: 'Motion design, 3D visuals and creative content that make brands look and feel extraordinary.',
     viewWork: 'View my work',
     startProject: 'Start a project',
-    portraitLink: 'Portrait of {name}. Read more about her',
-    portraitAlt: '{name}, motion designer and 3D artist',
     signatureTop: 'Good design',
     signatureBottom: 'moves people.',
     scrollTop: 'Scroll',

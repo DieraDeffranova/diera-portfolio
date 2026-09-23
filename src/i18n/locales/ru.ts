@@ -39,8 +39,6 @@ export const ru: Messages = {
     intro: 'Моушн-дизайн, 3D-визуалы и креативный контент, с которыми бренды выглядят и ощущаются по-особенному.',
     viewWork: 'Смотреть работы',
     startProject: 'Начать проект',
-    portraitLink: 'Портрет: {name}. Подробнее обо мне',
-    portraitAlt: '{name}, моушн-дизайнер и 3D-художник',
     signatureTop: 'Хороший дизайн',
     signatureBottom: 'трогает людей.',
     scrollTop: 'Листайте',

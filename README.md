@@ -19,7 +19,6 @@ npm run preview  # serve the production build
 | Project titles, categories, software, descriptions, order | `src/data/projects.ts` |
 | Project videos | `public/projects/` (see below) |
 | Where project requests are delivered | `src/data/profile.ts` → `formEndpoint` (e.g. a Formspree URL). Empty = the form validates and shows success, but nothing is sent |
-| Portrait | `src/assets/portrait.jpg` + `portrait-640.webp`, `portrait-1028.webp` (responsive sizes) |
 
 Email and Telegram are empty for now, so they are hidden. Fill them in and they appear automatically.
 
@@ -64,12 +63,12 @@ Cloudflare Pages or any static host. No server configuration is needed.
 
 One layout that recomposes at each size (Tailwind breakpoints + `clamp()` typography):
 
-- Mobile (< 640px): portrait first, name and text below, single-column projects in native 16:9,
+- Mobile (< 640px): the star first, name and text below, single-column projects in native 16:9,
   stacked services, one-column tools, full-width buttons, language selector inside the menu.
 - Tablet (768–1023px): projects in a wide / pair / wide rhythm, two-column tools and profiles,
   language selector in the header.
 - Laptop (1024–1919px): the original editorial composition.
-- Large (1920px+): the hero is capped at 1920px and centred (the portrait fades on both sides),
+- Large (1920px+): the hero is capped at 1920px and centred,
   content columns are capped at 1600px, the name grows slightly.
 
 Safe-area insets are respected on all edges. The custom cursor and ambient light animation are off on touch devices.
@@ -82,8 +81,11 @@ Safe-area insets are respected on all edges. The custom cursor and ambient light
 - **Liquid cursor** (`CustomCursor.tsx`): a small ink point that tracks the pointer with three softer ghosts
   trailing behind it, plus a ring that grows into a labelled disc (VIEW / EXPLORE / OPEN) over interactive media.
   `pointer-events: none`; not rendered on touch or with reduced motion.
-- **Portrait reaction** (`Portrait.tsx`): a few pixels of parallax, a fraction of a degree of tilt and a soft light
-  that follows the cursor. Everything returns to zero on leave; off on touch.
+- **Hero star** (`HeroStar.tsx`): the hero object is real geometry, not an image: an irregular five-point
+  star curve swept into an inflated tube and shaded as chrome (three.js). Reflections come from a studio
+  environment generated into a canvas and pre-filtered with PMREM, so there is no HDR file to load.
+  It leans a few degrees toward the pointer with spring easing; the render loop stops as soon as it settles.
+  Loaded in its own chunk, so the hero text paints before three.js arrives. Static on touch and with reduced motion.
 - **Project video takeover** (`VideoPreview.tsx`): the poster until hover, then the project's own video crossfades
   in (≈420ms) and pauses back to the poster on leave. The source is attached on first hover and reused, so a second
   hover never reloads the file. Touch devices keep the poster.

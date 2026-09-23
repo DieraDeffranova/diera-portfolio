@@ -40,8 +40,6 @@ export const uz: Messages = {
     intro: 'Brendlarga gʻayrioddiy koʻrinish va ruh baxsh etadigan motion-dizayn, 3D vizuallar va kreativ kontent.',
     viewWork: 'Ishlarimni koʻrish',
     startProject: 'Loyihani boshlash',
-    portraitLink: '{name} portreti. Men haqimda batafsil',
-    portraitAlt: '{name}, motion-dizayner va 3D-rassom',
     signatureTop: 'Yaxshi dizayn',
     signatureBottom: 'qalbga taʼsir qiladi.',
     scrollTop: 'Pastga',
